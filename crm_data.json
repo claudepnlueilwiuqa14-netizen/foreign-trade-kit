@@ -75,7 +75,84 @@
       ],
       "tier": "B",
       "score": 10.61
+    },
+    {
+      "id": 4,
+      "name": "Maria Garcia",
+      "company": "Ibiza Trade S.L.",
+      "country": "ES",
+      "email": "maria@ibizatrade.es",
+      "product": "无线蓝牙耳机",
+      "qty": 2000,
+      "target_price": 8.5,
+      "source": "alibaba",
+      "intent": 9,
+      "stage": "已报价",
+      "created": "2026-10-16 12:20:55",
+      "last_contact": "2026-10-16 12:23:24",
+      "next_follow": "2026-10-19",
+      "follows": [
+        {
+          "t": "2026-10-16 12:20:55",
+          "note": "首轮询盘 2000pcs 含 CE 认证"
+        },
+        {
+          "t": "2026-10-16 12:23:24",
+          "note": "已发跟进邮件（Option A/B）"
+        }
+      ],
+      "tier": "B",
+      "score": 11.85,
+      "quote_price": 9.2
+    },
+    {
+      "id": 5,
+      "name": "Ahmed Hassan",
+      "company": "Gulf Retail FZE",
+      "country": "AE",
+      "email": "ahmed@gulfretail.ae",
+      "product": "降噪蓝牙耳机",
+      "qty": 800,
+      "target_price": 12.0,
+      "source": "made-in-china",
+      "intent": 7,
+      "stage": "谈判中",
+      "created": "2026-10-16 12:20:55",
+      "last_contact": "2026-10-16 12:20:55",
+      "next_follow": "2026-10-13",
+      "follows": [
+        {
+          "t": "2026-10-16 12:20:55",
+          "note": "问 MOQ 和阶梯价"
+        }
+      ],
+      "tier": "C",
+      "score": 8.48
+    },
+    {
+      "id": 6,
+      "name": "Li Wei",
+      "company": "SG Tech",
+      "country": "SG",
+      "email": "li@sgtech.sg",
+      "product": "运动蓝牙耳机",
+      "qty": 300,
+      "target_price": 9.0,
+      "source": "alibaba",
+      "intent": 4,
+      "stage": "已流失",
+      "created": "2026-10-16 12:20:55",
+      "last_contact": "2026-10-16 12:20:55",
+      "next_follow": "2026-06-18",
+      "follows": [
+        {
+          "t": "2026-10-16 12:20:55",
+          "note": "去年询盘后失联"
+        }
+      ],
+      "tier": "D",
+      "score": 5.135
     }
   ],
-  "seq": 3
+  "seq": 6
 }
