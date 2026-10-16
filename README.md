@@ -200,6 +200,86 @@ $ curl http://127.0.0.1:8795/   →  HTTP 200，8431 字节 HTML
 看板纯标准库 `http.server`，前端内联（深色，无 CDN，**离线可用**）。
 缺哪个环节就显示"未导入"，**不填假数据**。
 
+### ⑦ `inquiry.py` 询盘自动跟进（2026-10-16 新增）
+
+读 `crm_data.json`，零依赖。干两件事：**排优先级队列** + **生成英文跟进邮件草稿**。
+
+```
+$ python inquiry.py due
+ID   客户               层    阶段             金额     逾期      优先级
+--------------------------------------------------------------------
+4    Maria Garcia     B    已报价         17000     9d    154.1
+5    Ahmed Hassan     C    谈判中          9600     3d     45.3
+--------------------------------------------------------------------
+共 2 条待跟进。生成草稿：python inquiry.py draft --id <ID>
+
+$ python inquiry.py draft --id 4
+[+] 草稿已生成：outbox/followup_004_2026-10-16.md
+    Subject: Follow-up: 无线蓝牙耳机 — 2000 pcs
+    阶段 已报价 / 分层 B / 正文 7 行
+
+$ python inquiry.py sweep --days 7
+[+] 已批量生成 2 封跟进草稿 -> outbox/
+今日跟进队列（按优先级）：
+  1. #4   Maria Garcia     B类 已报价      逾期9d ｜ 报价跟进超期：给 Option A/B 二选一，逼出决策
+  2. #5   Ahmed Hassan     C类 谈判中      逾期3d ｜ 谈判中：用数量/阶梯价换价格，别直接降价
+
+$ python inquiry.py log --id 4 --note "已发跟进邮件（Option A/B）" --next 3
+[+] 已记录跟进 #4
+```
+
+设计要点：
+- **话术按阶段分六类**：新询盘 / 已报价 / 谈判中 / 已打样 / 已下单 / 已流失(唤醒)
+- **语气按分层分四档**：A 顾问式长文（加市场定价观察）、B 标准、C 三句短模板、D 无压力唤醒
+- 每个草稿头部带元信息表（优先级分 / 逾期天数 / 建议动作），中文可读
+- 纯本地模板，**不依赖 LLM**——半夜跑也不会交不出东西；要润色把 `outbox/*.md` 喂给 LLM 网关即可
+- `log` 直接复用 `crm.follow`，发完邮件记一笔，下次跟进日期自动排
+
+### ⑧ `bulk.py` 多平台批量上架（2026-10-16 新增）
+
+读 `listing.json` → 按各平台规则重裁 → 生成规范上架文件。**一条命令铺 5 个平台**。
+
+```
+$ python bulk.py plan --listing listing.json --platforms all --price 19.99 --stock 500
+[*] 产品 无线蓝牙耳机 ｜ 4 个语言版 ｜ 价 19.99 USD ｜ 库存 500
+[+] amazon      4 条 -> payloads/20261016_122547_无线蓝牙耳机/amazon_无线蓝牙耳机.csv
+[+] ebay        4 条 -> payloads/20261016_122547_无线蓝牙耳机/ebay_无线蓝牙耳机.csv
+[+] shopify     4 条 -> payloads/20261016_122547_无线蓝牙耳机/shopify_无线蓝牙耳机.json
+[+] aliexpress  4 条 -> payloads/20261016_122547_无线蓝牙耳机/aliexpress_无线蓝牙耳机.json
+[+] etsy        4 条 -> payloads/20261016_122547_无线蓝牙耳机/etsy_无线蓝牙耳机.csv
+
+$ python bulk.py report
+== 20261016_122547_无线蓝牙耳机 ==
+   amazon_无线蓝牙耳机.csv      4 行
+   ebay_无线蓝牙耳机.csv        4 行
+   shopify_无线蓝牙耳机.json    4 条
+   aliexpress_无线蓝牙耳机.json 4 条
+   etsy_无线蓝牙耳机.csv        4 行
+```
+
+| 平台 | 产物格式 | 怎么用 |
+|---|---|---|
+| amazon | 库存加载器 Flat File CSV（SKU/标题/五点/描述/价格/库存/搜索词） | 卖家后台 > 库存 > 批量上传商品 |
+| ebay | 文件交换 CSV | 卖家中心 > 文件交换 |
+| shopify | `products.json` 载荷 | 后台导入，或 `bulk.py push` **真实推送** |
+| aliexpress | JSON（subject/detail/sku_list） | 卖家后台 > 商品批量发布 |
+| etsy | 上架 CSV（13 tag 上限已裁剪） | 后台 > 上架管理 > 批量 CSV |
+
+**真实推送（只有 Shopify 能推）**：Amazon SP-API / eBay Trading / Etsy 都要卖家账号 OAuth 审批，
+本机没有这些凭证，**不造假**——生成规范文件走后台上传。Shopify 只要一个 Admin API token：
+
+```
+# token 获取：后台 > 设置 > 应用和销售渠道 > 开发应用 > Admin API > 暴露 write_products > 安装 > 复制 token
+$ python bulk.py push --platform shopify --shop mystore.myshopify.com --token-file key.txt --price 19.99 --stock 500
+[+] Generic 无线蓝牙耳机 - earbuds, wireless, ear, bluetooth for daily 已创建
+...
+[✓] 成功 4 / 失败 0（mystore.myshopify.com）
+```
+
+每条标题/五点都按目标平台规则重裁（标题 200/80/128/120/140 字符、五点 5/4/4/5/0 条、tag 数上限），
+不是把亚马逊文案硬塞给 eBay。
+
+
 ---
 
 ## 二、一键跑通
@@ -215,6 +295,9 @@ python logistics.py quote --weight 0.18 --country US --value 29.99 --sensitive b
 python logistics.py customs --product "无线蓝牙耳机" --hs 8518.30 --qty 200 --net 9 --gross 11 --value 5.6
 python crm.py add --name "John Smith" --country US --product "无线蓝牙耳机" --qty 500 --target 8.5 --intent 8
 python crm.py quote --id 1 --cost 42 --weight 0.18 --channel sea_us --margin 0.25 --out demo_quote.html
+python inquiry.py due                          # 今日该跟进谁
+python inquiry.py sweep --days 7               # 批量生成英文跟进邮件草稿
+python bulk.py plan --listing listing.json --platforms all --price 19.99 --stock 500
 python dashboard.py --port 8795
 ```
 
@@ -230,6 +313,8 @@ python dashboard.py --port 8795
 | AliExpress 价格 | 部分卡片价格未渲染，价格为空 | 渲染后等待更久 / 走 `?SortType=price` 触发价格渲染 |
 | 汇率 | 在线取（open.er-api.com），失败回落内置值并标注 `fallback` | 可换成签约汇率源 |
 | 报价单 PDF | 输出 HTML（浏览器打印存 PDF） | 装 `reportlab` 或 `weasyprint` 后直接出 PDF |
+| 邮件自动发送 | 只生成草稿到 `outbox/`，不直连 SMTP（不发假邮件、不群发骚扰） | 接自己的 SMTP/企业邮箱，`smtplib` 20 行即可，发之前人工过一遍 |
+| Amazon/eBay/Etsy 上架 | 只生成规范 CSV/JSON，未接卖家 API（缺 OAuth 凭证） | 拿到卖家账号审批后接 SP-API / Trading API；Shopify 已可 `bulk.py push` 真实推送 |
 
 费率数据（平台佣金 / FBA 档位 / 渠道运费 / HS 税率）是行业公开常见档位，
 已内置并可改；**正式报价以平台政策与货代实时报价为准**。
