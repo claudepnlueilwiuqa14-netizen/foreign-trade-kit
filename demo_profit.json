@@ -1,0 +1,45 @@
+{
+  "ok": true,
+  "currency": "USD",
+  "fx_usdcny": 6.702952,
+  "fx_source": "open.er-api.com",
+  "platform": "amazon",
+  "platform_name": "Amazon US",
+  "channel": "yunexpress",
+  "channel_name": "云途专线(带电)",
+  "eta_days": [
+    8,
+    15
+  ],
+  "sell_price": 29.99,
+  "breakdown": {
+    "采购成本": 6.27,
+    "头程运费": 7.01,
+    "包装杂费": 0.45,
+    "关税(0.0%)": 0.0,
+    "平台佣金(15.0%)": 4.5,
+    "平台固定费": 0.3,
+    "FBA/履约费": 3.86,
+    "广告费(12%)": 3.6,
+    "退货损耗(3%)": 0.9
+  },
+  "total_cost": 26.88,
+  "gross_profit": 3.11,
+  "gross_margin": 10.36,
+  "roi": 22.6,
+  "breakeven_price": 38.4,
+  "fob_cny": 45.0,
+  "cif_usd": 13.28,
+  "monthly_profit_at_1000_units": 3107.7,
+  "hs": "8518.30",
+  "hs_name": "耳机及听筒（含蓝牙耳机）",
+  "customs_elements": [
+    "品名",
+    "用途（蓝牙耳机/有线）",
+    "品牌",
+    "型号",
+    "是否无线",
+    "连接方式（蓝牙版本）",
+    "材质"
+  ]
+}
