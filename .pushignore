@@ -1,0 +1,7 @@
+# 本机推送排除清单（ghpush.py 的 .pushignore）
+payloads/
+outbox/
+__pycache__/
+*.pyc
+*.log
+*.db
