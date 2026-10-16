@@ -1,0 +1,81 @@
+{
+  "leads": [
+    {
+      "id": 1,
+      "name": "John Smith",
+      "company": "AudioTech LLC",
+      "country": "US",
+      "email": "john@audiotech.com",
+      "product": "无线蓝牙耳机",
+      "qty": 500,
+      "target_price": 8.5,
+      "source": "alibaba",
+      "intent": 8,
+      "stage": "新询盘",
+      "created": "2026-10-16 09:17:19",
+      "last_contact": "2026-10-16 09:17:22",
+      "next_follow": "2026-10-19",
+      "follows": [
+        {
+          "t": "2026-10-16 09:17:19",
+          "note": "要 500pcs 定制 LOGO"
+        },
+        {
+          "t": "2026-10-16 09:17:22",
+          "note": "已发报价单，等待回复"
+        }
+      ],
+      "tier": "B",
+      "score": 10.2125
+    },
+    {
+      "id": 2,
+      "name": "Hans Müller",
+      "company": "Berlin Gadget GmbH",
+      "country": "DE",
+      "email": "h@bg.de",
+      "product": "无线蓝牙耳机",
+      "qty": 120,
+      "target_price": 7.2,
+      "source": "展会",
+      "intent": 6,
+      "stage": "新询盘",
+      "created": "2026-10-16 09:17:20",
+      "last_contact": "2026-10-16 09:17:20",
+      "next_follow": null,
+      "follows": [
+        {
+          "t": "2026-10-16 09:17:20",
+          "note": "首次询盘"
+        }
+      ],
+      "tier": "C",
+      "score": 7.0432
+    },
+    {
+      "id": 3,
+      "name": "田中太郎",
+      "company": "Tokyo Trading",
+      "country": "JP",
+      "email": "t@tt.jp",
+      "product": "无线蓝牙耳机",
+      "qty": 2000,
+      "target_price": 6.1,
+      "source": "alibaba",
+      "intent": 9,
+      "stage": "新询盘",
+      "created": "2026-10-16 09:17:21",
+      "last_contact": "2026-10-16 09:17:21",
+      "next_follow": null,
+      "follows": [
+        {
+          "t": "2026-10-16 09:17:21",
+          "note": "首次询盘"
+        }
+      ],
+      "tier": "B",
+      "score": 10.61
+    }
+  ],
+  "seq": 3
+}
