@@ -1,0 +1,126 @@
+{
+  "ok": true,
+  "weight_kg": 0.18,
+  "country": "US",
+  "sensitive": "battery",
+  "fx_usdcny": 6.702952,
+  "fx_source": "open.er-api.com",
+  "rows": [
+    {
+      "channel": "yunexpress",
+      "name": "云途专线(带电)",
+      "cost_cny": 47.0,
+      "cost_usd": 7.01,
+      "freight_pct": 23.4,
+      "eta": "13-27",
+      "eta_min": 13,
+      "eta_max": 27,
+      "track": "有",
+      "note": "带电产品可走，时效稳定，外贸主力",
+      "peak": "平季"
+    },
+    {
+      "channel": "ems",
+      "name": "EMS 国际快递",
+      "cost_cny": 120.0,
+      "cost_usd": 17.9,
+      "freight_pct": 59.7,
+      "eta": "12-27",
+      "eta_min": 12,
+      "eta_max": 27,
+      "track": "有",
+      "note": "通达国家多，清关能力较强",
+      "peak": "平季"
+    },
+    {
+      "channel": "ups",
+      "name": "UPS 国际快递",
+      "cost_cny": 195.0,
+      "cost_usd": 29.09,
+      "freight_pct": 97.0,
+      "eta": "8-20",
+      "eta_min": 8,
+      "eta_max": 20,
+      "track": "有",
+      "note": "北美线优势",
+      "peak": "平季"
+    },
+    {
+      "channel": "fedex",
+      "name": "FedEx 国际快递",
+      "cost_cny": 200.0,
+      "cost_usd": 29.84,
+      "freight_pct": 99.5,
+      "eta": "8-20",
+      "eta_min": 8,
+      "eta_max": 20,
+      "track": "有",
+      "note": "欧美线稳定",
+      "peak": "平季"
+    },
+    {
+      "channel": "dhl",
+      "name": "DHL 国际快递",
+      "cost_cny": 210.0,
+      "cost_usd": 31.33,
+      "freight_pct": 104.5,
+      "eta": "8-19",
+      "eta_min": 8,
+      "eta_max": 19,
+      "track": "有",
+      "note": "最快，价格高，急件/样品",
+      "peak": "平季"
+    },
+    {
+      "channel": "sea_us",
+      "name": "海派美森快船(美国)",
+      "cost_cny": 283.5,
+      "cost_usd": 42.29,
+      "freight_pct": 141.0,
+      "eta": "30-52",
+      "eta_min": 30,
+      "eta_max": 52,
+      "track": "有",
+      "note": "最便宜，旺季必配，需提前 45 天备货",
+      "peak": "平季"
+    },
+    {
+      "channel": "sea_eu",
+      "name": "海派欧洲专线",
+      "cost_cny": 315.0,
+      "cost_usd": 46.99,
+      "freight_pct": 156.7,
+      "eta": "35-57",
+      "eta_min": 35,
+      "eta_max": 57,
+      "track": "有",
+      "note": "欧洲海运双清，时效慢于美线",
+      "peak": "平季"
+    },
+    {
+      "channel": "air_duty",
+      "name": "空派双清包税",
+      "cost_cny": 504.0,
+      "cost_usd": 75.19,
+      "freight_pct": 250.7,
+      "eta": "13-26",
+      "eta_min": 13,
+      "eta_max": 26,
+      "track": "有",
+      "note": "含关税，重货批量补货主力",
+      "peak": "平季"
+    }
+  ],
+  "recommend": {
+    "cheapest": "云途专线(带电)",
+    "fastest": "DHL 国际快递",
+    "balanced": "云途专线(带电)"
+  },
+  "documents": [
+    "商业发票 Commercial Invoice",
+    "装箱单 Packing List",
+    "FCC 声明（带电产品）",
+    "UN38.3 + MSDS（含锂电池）",
+    "ISF 10+2（海运）"
+  ]
+}
