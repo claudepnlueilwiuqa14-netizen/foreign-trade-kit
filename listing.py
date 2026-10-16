@@ -43,6 +43,8 @@ PLATFORM_RULE = {
                    "title_fmt": "{core} {attrs} {benefit} for {scene}"},
     "shopify": {"title_max": 120, "bullets": 5, "bullet_max": 200, "kw_max": 320,
                 "title_fmt": "{core} — {attrs}"},
+    "etsy": {"title_max": 140, "bullets": 0, "bullet_max": 0, "kw_max": 130,
+             "title_fmt": "{core} {attrs} | {scene}"},
 }
 
 # ---------------------------------------------------------------- 多语言词典
